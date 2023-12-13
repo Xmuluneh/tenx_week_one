@@ -18,29 +18,7 @@ class DataWrangler:
         null_percentage = (total_null_cells / total_cells) * 100
         return null_percentage
 
-    def handle_missing_data(self, strategy="drop", threshold=None):
-        """
-        Handle missing data in the DataFrame.
 
-        Parameters:
-        - strategy (str): Strategy for handling missing data ('drop', 'impute', etc.).
-        - threshold (float): Threshold for dropping columns based on missing values.
-
-        Returns:
-        - pd.DataFrame: DataFrame with missing data handled.
-        """
-        if strategy == "drop":
-            if threshold is not None:
-                self.df = self.df.dropna(
-                    axis=1, thresh=int((1 - threshold) * len(self.df))
-                )
-            else:
-                self.df = self.df.dropna()
-        elif strategy == "impute":
-            # Add your imputation logic here
-            pass
-        # Add more strategies as needed
-        return self.df
 
     def handle_duplicate_data(self):
         """

@@ -18,8 +18,6 @@ class DataWrangler:
         null_percentage = (total_null_cells / total_cells) * 100
         return null_percentage
 
-
-
     def handle_duplicate_data(self):
         """
         Handle duplicate data in the DataFrame.

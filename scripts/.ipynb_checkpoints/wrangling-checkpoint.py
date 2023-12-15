@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 class DataWrangler:
     def __init__(self, df):
         self.df = df
@@ -27,13 +28,32 @@ class DataWrangler:
         self.df.drop_duplicates(inplace=True)
         return self.df
 
-    def replace_outliers_with_mean(self, columns):
-        for column in columns:
-            # Calculate z-scores for each data point in the column
-            z_scores = np.abs((self.df[column] - self.df[column].mean()) / self.df[column].std())
-        
-            # Replace values that are outliers (e.g., z-score greater than 3) with the mean
-            self.df[column] = np.where(z_scores > 3, self.df[column].mean(), self.df[column])
+    def handle_outliers(self, method="z-score", columns=None):
+        """
+        Handle outliers in the DataFrame.
+
+        Parameters:
+        - method (str): Method for handling outliers ('z-score', 'IQR', etc.).
+        - columns (list): List of columns to analyze for outliers.
+
+        Returns:
+        - pd.DataFrame: DataFrame with outliers handled.
+        """
+        if columns is None:
+            columns = self.df.columns
+
+        if method == "z-score":
+            z_scores = np.abs(
+                (self.df[columns] - self.df[columns].mean()) / self.df[columns].std()
+            )
+            self.df = self.df[
+                (z_scores < 3).all(axis=1)
+            ]  # Adjust the threshold as needed
+        elif method == "IQR":
+            # Add your IQR-based outlier handling logic here
+            pass
+        # Add more methods as needed
+        return self.df
 
     def aggregate_data(self, group_by_columns, aggregation_functions):
         """

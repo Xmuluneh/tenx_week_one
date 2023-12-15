@@ -21,7 +21,9 @@ class Plotter:
         plt.title(title)
         plt.show()
 
-    def plot_scatter_plot(self, x_values, y_values, title="Scatter Plot", xlabel="X Axis", ylabel="Y Axis"):
+    def plot_scatter_plot(
+        self, x_values, y_values, title="Scatter Plot", xlabel="X Axis", ylabel="Y Axis"
+    ):
         plt.figure(figsize=(8, 6))
         plt.scatter(x_values, y_values)
         plt.title(title)
